@@ -41,7 +41,7 @@ char *cg_xml_escapechars(CgString *str)
 	fromChars[3] = "\"";
 	fromChars[4] = "'";
 	
-	toChars[0] = "&amp;";
+	toChars[0] = "&amp;amp;";
 	toChars[1] = "&gt;";
 	toChars[2] = "&lt;";
 	toChars[3] = "&quot;";

@@ -65,16 +65,19 @@ enum {
 	if (!action)
 		return NO;
 
-    NSMutableString *currentURIMeta = [NSMutableString stringWithString:@"<DIDL-Lite xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\" xmlns:dlna=\"urn:schemas-dlna-org:metadata-1-0/\" xmlns:sec=\"http://www.sec.co.kr/dlna\">"];
-    [currentURIMeta appendFormat:@"<item id=\"%@\" parentID=\"%@\" restricted=\"%d\">", [avItem objectId], [[avItem parent] objectId], 0];
+    NSMutableString *currentURIMeta = [NSMutableString stringWithString:@"<?xml version=\"1.0\"?><DIDL-Lite xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\" xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:dlna=\"urn:schemas-dlna-org:metadata-1-0/\">"];
+    [currentURIMeta appendFormat:@"<item id=\"%@\" parentID=\"%@\" restricted=\"%d\">", [avItem objectId], [[avItem parent] objectId], 1];
     [currentURIMeta appendFormat:@"<dc:title>%@</dc:title>", [avItem title]];
     [currentURIMeta appendFormat:@"<upnp:class>%@</upnp:class>", [avItem upnpClass]];
-    [currentURIMeta appendFormat:@"<dc:date>%@</dc:date>", [avItem date]];
     for (CGUpnpAvResource *resource in [avItem resources]) {
         
-        [currentURIMeta appendFormat:@"<res protocolInfo=\"%@\"%@ resolution=\"%fx%f\">%@</res>",
-         [resource protocolInfo], [resource size] ? [NSString stringWithFormat:@" size=\"%lld\"", [resource size]] : @"", [resource resolution].width, [resource resolution].height, [resource url]];
+        [currentURIMeta appendFormat:@"<res protocolInfo=\"%@\"%@ resolution=\"%dx%d\">%@</res>",
+         [resource protocolInfo], [resource size] ? [NSString stringWithFormat:@" size=\"%lld\"", [resource size]] : @"", (int)[resource resolution].width, (int)[resource resolution].height, [resource url]];
     }
+    if ([avItem albumArtURI]) {
+        [currentURIMeta appendFormat:@"<upnp:albumArtURI>%@</upnp:albumArtURI>", [avItem albumArtURI]];
+    }
+    [currentURIMeta appendFormat:@"<dc:date>%@</dc:date>", [avItem date]];
     [currentURIMeta appendString:@"</item></DIDL-Lite>"];
     
 	[action setArgumentValue:@"0" forName:@"InstanceID"];
