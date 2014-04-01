@@ -10,6 +10,7 @@
 
 #import "CGUpnpAvRenderer.h"
 #import "CGUpnpAVPositionInfo.h"
+#import "CGUpnpAvItem.h"
 
 @interface CGUpnpAvRenderer()
 @property (assign) int currentPlayMode;
@@ -58,16 +59,28 @@ enum {
 	return [avTransService getActionForName:serviceName];
 }
 
-- (BOOL)setAVTransportURI:(NSString *)aURL;
+- (BOOL)setAVTransportAVItem:(CGUpnpAvItem *)avItem
 {
 	CGUpnpAction *action = [self actionOfTransportServiceForName:@"SetAVTransportURI"];
 	if (!action)
 		return NO;
 
+    NSMutableString *currentURIMeta = [NSMutableString stringWithString:@"<DIDL-Lite xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\" xmlns:dlna=\"urn:schemas-dlna-org:metadata-1-0/\" xmlns:sec=\"http://www.sec.co.kr/dlna\">"];
+    [currentURIMeta appendFormat:@"<item id=\"%@\" parentID=\"%@\" restricted=\"%d\">", [avItem objectId], [[avItem parent] objectId], 0];
+    [currentURIMeta appendFormat:@"<dc:title>%@</dc:title>", [avItem title]];
+    [currentURIMeta appendFormat:@"<upnp:class>%@</upnp:class>", [avItem upnpClass]];
+    [currentURIMeta appendFormat:@"<dc:date>%@</dc:date>", [avItem date]];
+    for (CGUpnpAvResource *resource in [avItem resources]) {
+        
+        [currentURIMeta appendFormat:@"<res protocolInfo=\"%@\"%@ resolution=\"%fx%f\">%@</res>",
+         [resource protocolInfo], [resource size] ? [NSString stringWithFormat:@" size=\"%lld\"", [resource size]] : @"", [resource resolution].width, [resource resolution].height, [resource url]];
+    }
+    [currentURIMeta appendString:@"</item></DIDL-Lite>"];
+    
 	[action setArgumentValue:@"0" forName:@"InstanceID"];
-	[action setArgumentValue:aURL forName:@"CurrentURI"];
-	[action setArgumentValue:@"" forName:@"CurrentURIMetaData"];
-	
+	[action setArgumentValue:[avItem.resourceUrl absoluteString] forName:@"CurrentURI"];
+	[action setArgumentValue:currentURIMeta forName:@"CurrentURIMetaData"];
+    
 	if (![action post])
 		return NO;
 	

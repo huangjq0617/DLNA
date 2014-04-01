@@ -13,6 +13,7 @@
 #import <CyberLink/CGUpnpAVPositionInfo.h>
 
 @class CGUpnpAvRenderer;
+@class CGUpnpAvItem;
 @class CGUpnpAVPositionInfo;
 
 #if !defined(_CG_CLINKCAV_MEDIARENDERER_H_)
@@ -29,7 +30,7 @@ typedef void CgUpnpAvRenderer;
 @property(readonly) CgUpnpAvRenderer *cAvObject;
 - (id)init;
 - (id)initWithCObject:(CgUpnpDevice *)cobj;
-- (BOOL)setAVTransportURI:(NSString *)aURI;
+- (BOOL)setAVTransportAVItem:(CGUpnpAvItem *)avItem;
 - (BOOL)play;
 - (BOOL)stop;
 - (BOOL)pause;

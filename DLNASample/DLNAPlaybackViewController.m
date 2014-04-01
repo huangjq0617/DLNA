@@ -76,7 +76,7 @@
     nextButton.frame = CGRectMake(self.view.center.x+45, 380, 50, 20);
     [self.view addSubview:nextButton];
     
-    if ([self.renderer setAVTransportURI:[self.avItem.resourceUrl description]]) {
+    if ([self.renderer setAVTransportAVItem:self.avItem]) {
         [self.renderer play];
         self.isPlay = [self.renderer isPlaying];
     } 

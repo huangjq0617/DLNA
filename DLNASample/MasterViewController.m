@@ -276,10 +276,9 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 #pragma mark -
 #pragma mark CGUpnpControlPointDelegate
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn {
-    NSLog(@"%@", deviceUdn);
+    
     self.avController = (CGUpnpAvController*)controlPoint;
     
-    //self.dataSource = [controlPoint devices];
     
     self.renderers =  [((CGUpnpAvController*)controlPoint) renderers];
 //    NSArray* renderers = [((CGUpnpAvController*)controlPoint) renderers];
@@ -289,8 +288,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 //        }
 //    }
     
-    self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
-    int dmsNum = 0;
+//    int dmsNum = 0;
 //    for (CGUpnpDevice *dev in [controlPoint devices]) {
 //        //NSLog(@"%@:%@", [dev friendlyName], [dev ipaddress]);
 //        if ([dev isDeviceType:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
@@ -302,18 +300,37 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 //            NSLog(@"#Renderer%@", [dev deviceType]);
 //        }
 //    }
+    CGUpnpDevice *device = [controlPoint deviceForUDN:deviceUdn];
+    if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaRenderer:1"]) {
+        self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
+        dispatch_sync(dispatch_get_main_queue(), ^{
     [self.tableView reloadData];
+        });
+    }
 }
 
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceAdded:(NSString *)deviceUdn
 {
-    NSLog(@"device added udn %@", deviceUdn); 
+    CGUpnpDevice *device = [controlPoint deviceForUDN:deviceUdn];
+    if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaRenderer:1"]) {
+        self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }
 }
 
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceRemoved:(NSString *)deviceUdn
 {
-    NSLog(@"device removed udn %@", deviceUdn);
-    self.dataSource = [controlPoint devices];
+    CGUpnpDevice *device = [controlPoint deviceForUDN:deviceUdn];
+    if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaRenderer:1"]) {
+        self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
+        dispatch_sync(dispatch_get_main_queue(), ^{
     [self.tableView reloadData];
+        });
+    }
+}
+- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceInvalid:(NSString *)deviceUdn
+{
 }
 @end
