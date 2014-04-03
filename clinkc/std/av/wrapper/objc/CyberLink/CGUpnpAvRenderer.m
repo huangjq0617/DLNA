@@ -7,6 +7,7 @@
 //
 
 #include <cybergarage/upnp/std/av/cmediarenderer.h>
+#include <cybergarage/upnp/std/av/cdidl.h>
 
 #import "CGUpnpAvRenderer.h"
 #import "CGUpnpAVPositionInfo.h"
@@ -64,25 +65,61 @@ enum {
 	CGUpnpAction *action = [self actionOfTransportServiceForName:@"SetAVTransportURI"];
 	if (!action)
 		return NO;
-
-    NSMutableString *currentURIMeta = [NSMutableString stringWithString:@"<?xml version=\"1.0\"?><DIDL-Lite xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\" xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:dlna=\"urn:schemas-dlna-org:metadata-1-0/\">"];
-    [currentURIMeta appendFormat:@"<item id=\"%@\" parentID=\"%@\" restricted=\"%d\">", [avItem objectId], [[avItem parent] objectId], 1];
-    [currentURIMeta appendFormat:@"<dc:title>%@</dc:title>", [avItem title]];
-    [currentURIMeta appendFormat:@"<upnp:class>%@</upnp:class>", [avItem upnpClass]];
+    
+    CgXmlNode *didl_node = cg_upnpav_didl_node_new();
+    CgString *currentUriMeta = cg_string_new();
+    
+    CgXmlNode *item = cg_xml_node_new();
+    cg_xml_node_setname(item, "item");
+    cg_xml_node_setattribute(item, "id", ((char *)[[NSString stringWithFormat:@"%@", [avItem objectId]] UTF8String]) );
+    cg_xml_node_setattribute(item, "parentID", ((char *)[[NSString stringWithFormat:@"%@", [[avItem parent] objectId]] UTF8String]) );
+    cg_xml_node_setattribute(item, "restricted", ((char *)[[NSString stringWithFormat:@"%d", 1] UTF8String]) );
+    
+    cg_xml_node_addchildnode(didl_node, item);
+    
+    CgXmlNode *dc_title = cg_xml_node_new();
+    cg_xml_node_setname(dc_title, "dc:title");
+    cg_xml_node_setvalue(dc_title, (char *)[[avItem title] UTF8String]);
+    cg_xml_node_addchildnode(item, dc_title);
+    
+    CgXmlNode *upnp_class = cg_xml_node_new();
+    cg_xml_node_setname(upnp_class, "upnp:class");
+    cg_xml_node_setvalue(upnp_class, (char *)[[avItem upnpClass] UTF8String]);
+    cg_xml_node_addchildnode(item, upnp_class);
+    
     for (CGUpnpAvResource *resource in [avItem resources]) {
         
-        [currentURIMeta appendFormat:@"<res protocolInfo=\"%@\"%@ resolution=\"%dx%d\">%@</res>",
-         [resource protocolInfo], [resource size] ? [NSString stringWithFormat:@" size=\"%lld\"", [resource size]] : @"", (int)[resource resolution].width, (int)[resource resolution].height, [resource url]];
+        CgXmlNode *res = cg_xml_node_new();
+        cg_xml_node_setname(res, "res");
+        cg_xml_node_setattribute(res, "protocolInfo", ((char *)[[NSString stringWithFormat:@"%@", [resource protocolInfo]] UTF8String]) );
+        if ([resource size]) {
+            cg_xml_node_setattribute(res, "size", ((char *)[[NSString stringWithFormat:@"%lld", [resource size]] UTF8String]) );
+        }
+        cg_xml_node_setattribute(res, "resolution", ((char *)[[NSString stringWithFormat:@"%dx%d",
+                                                               (int)[resource resolution].width, (int)[resource resolution].height] UTF8String]) );
+        cg_xml_node_setvalue(res, ((char *)[[resource url] UTF8String]) );
+        cg_xml_node_addchildnode(item, res);
     }
+    
     if ([avItem albumArtURI]) {
-        [currentURIMeta appendFormat:@"<upnp:albumArtURI>%@</upnp:albumArtURI>", [avItem albumArtURI]];
+        
+        CgXmlNode *albumArtURI = cg_xml_node_new();
+        cg_xml_node_setname(albumArtURI, "upnp:albumArtURI");
+        cg_xml_node_setvalue(albumArtURI, ((char *)[[avItem albumArtURI] UTF8String]) );
+        cg_xml_node_addchildnode(item, albumArtURI);
     }
-    [currentURIMeta appendFormat:@"<dc:date>%@</dc:date>", [avItem date]];
-    [currentURIMeta appendString:@"</item></DIDL-Lite>"];
+    
+    CgXmlNode *date = cg_xml_node_new();
+    cg_xml_node_setname(date, "dc:date");
+    cg_xml_node_setvalue(date, ((char *)[[avItem date] UTF8String]) );
+    cg_xml_node_addchildnode(item, date);
     
 	[action setArgumentValue:@"0" forName:@"InstanceID"];
 	[action setArgumentValue:[avItem.resourceUrl absoluteString] forName:@"CurrentURI"];
-	[action setArgumentValue:currentURIMeta forName:@"CurrentURIMetaData"];
+	[action setArgumentValue:[NSString stringWithFormat:@"%s%s", CG_XML_VERSION_HEADER, cg_xml_node_tostring(didl_node, YES, currentUriMeta)] forName:@"CurrentURIMetaData"];
+    
+    cg_string_delete(currentUriMeta);
+    cg_xml_node_delete(didl_node);
     
 	if (![action post])
 		return NO;

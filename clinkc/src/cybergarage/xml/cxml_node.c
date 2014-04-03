@@ -301,7 +301,7 @@ static char *cg_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
 		value = cg_xml_attribute_getvalue(attr);
 		
 		cg_string_setvalue(valueStr, value);
-		cg_xml_escapechars(valueStr);
+//		cg_xml_escapechars(valueStr);
 
 		/* All the following functions return NULL only when memory 
 		   allocation fails, so we can check them all */
