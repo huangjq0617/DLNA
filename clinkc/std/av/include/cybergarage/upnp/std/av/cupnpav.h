@@ -29,6 +29,7 @@ extern "C" {
 #define CG_UPNPAV_OBJECT_TITLE "dc:title"
 #define CG_UPNPAV_OBJECT_DATE "dc:date"
 #define CG_UPNPAV_OBJECT_UPNPCLASS "upnp:class"
+#define CG_UPNPAV_OBJECT_ALBUM  "upnp:album"
 #define CG_UPNPAV_OBJECT_ALBUMARTURI "upnp:albumArtURI"
 #define CG_UPNPAV_OBJECT_ROOT_ID "0"
 #define CG_UPNPAV_OBJECT_ARTIST "upnp:artist"

@@ -192,49 +192,53 @@
 	return [self attributeValueForName:@CG_UPNPAV_OBJECT_ID];
 }
 
-- (NSUInteger)childCount;
+- (NSUInteger)childCount
 {
 	return cg_str2int([[self attributeValueForName:@CG_UPNPAV_OBJECT_ID] UTF8String]);
 }
 
-- (NSString *)title;
+- (NSString *)title
 {
 	return [self elementValueForName:@CG_UPNPAV_OBJECT_TITLE];
 }
 /**
  *
  */
-- (NSString *)artist;
+- (NSString *)artist
 {
     return [self elementValueForName:@CG_UPNPAV_OBJECT_ARTIST];
 }
-- (NSString *)upnpClass;
+- (NSString *)upnpClass
 {
 	return [self elementValueForName:@CG_UPNPAV_OBJECT_UPNPCLASS];
 }
 
-- (NSString *)date;
+- (NSString *)date
 {
 	return [self elementValueForName:@CG_UPNPAV_OBJECT_DATE];
 }
 
-- (NSString *)albumArtURI;
+- (NSString *)album
+{
+    return [self elementValueForName:@CG_UPNPAV_OBJECT_ALBUM];
+}
+
+- (NSString *)albumArtURI
 {
 	return [self elementValueForName:@CG_UPNPAV_OBJECT_ALBUMARTURI];
 }
-
 
 - (void)setObjectId:(NSString *)aValue
 {
 	[self setAttributeWithName:@CG_UPNPAV_OBJECT_ID stringValue:aValue];
 }
 
-- (void)setTitle:(NSString *)aValue;
+- (void)setTitle:(NSString *)aValue
 {
 	[self setAttributeWithName:@CG_UPNPAV_OBJECT_TITLE stringValue:aValue];
 }
 
-- (void)setUpnpClass:(NSString *)aValue;
+- (void)setUpnpClass:(NSString *)aValue
 {
 	[self setAttributeWithName:@CG_UPNPAV_OBJECT_UPNPCLASS stringValue:aValue];
 }

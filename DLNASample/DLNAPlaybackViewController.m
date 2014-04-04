@@ -69,6 +69,7 @@
     UIButton *playPauseButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [playPauseButton addTarget:self action:@selector(playPauseButtonDidPush) forControlEvents:UIControlEventTouchUpInside];
     playPauseButton.frame = CGRectMake(self.view.center.x-25, 380, 50, 20);
+    playPauseButton.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:playPauseButton];
     
     UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -134,7 +135,7 @@
 - (void)playPauseButtonDidPush 
 {
     if (self.isPlay) {
-        [self.renderer stop];
+        [self.renderer pause];
         
     }else {
         [self.renderer play];

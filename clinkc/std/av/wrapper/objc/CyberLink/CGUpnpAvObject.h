@@ -51,6 +51,7 @@ typedef void CgUpnpAvContent;
 - (NSString *)title;
 - (NSString *)upnpClass;
 - (NSString *)date;
+- (NSString *)album;
 - (NSString *)albumArtURI;
 - (void)setObjectId:(NSString *)aValue;
 - (void)setTitle:(NSString *)aValue;

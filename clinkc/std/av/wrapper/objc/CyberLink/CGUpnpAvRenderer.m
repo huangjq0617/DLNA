@@ -13,6 +13,17 @@
 #import "CGUpnpAVPositionInfo.h"
 #import "CGUpnpAvItem.h"
 
+#define ADD_CHILDNODE_TO_NODE(node, name, value) \
+{ \
+    if (value) \
+    { \
+        CgXmlNode *newNode = cg_xml_node_new(); \
+        cg_xml_node_setname(newNode, (name)); \
+        cg_xml_node_setvalue(newNode, (char *)[value UTF8String]); \
+        cg_xml_node_addchildnode(node, newNode); \
+    } \
+}
+
 @interface CGUpnpAvRenderer()
 @property (assign) int currentPlayMode;
 @end
@@ -71,21 +82,14 @@ enum {
     
     CgXmlNode *item = cg_xml_node_new();
     cg_xml_node_setname(item, "item");
-    cg_xml_node_setattribute(item, "id", ((char *)[[NSString stringWithFormat:@"%@", [avItem objectId]] UTF8String]) );
-    cg_xml_node_setattribute(item, "parentID", ((char *)[[NSString stringWithFormat:@"%@", [[avItem parent] objectId]] UTF8String]) );
-    cg_xml_node_setattribute(item, "restricted", ((char *)[[NSString stringWithFormat:@"%d", 1] UTF8String]) );
+    cg_xml_node_setattribute(item, CG_UPNPAV_OBJECT_ID, ((char *)[[NSString stringWithFormat:@"%@", [avItem objectId]] UTF8String]) );
+    cg_xml_node_setattribute(item, CG_UPNPAV_OBJECT_PARENTID, ((char *)[[NSString stringWithFormat:@"%@", [[avItem parent] objectId]] UTF8String]) );
+    cg_xml_node_setattribute(item, CG_UPNPAV_OBJECT_RESTRICTED, ((char *)[[NSString stringWithFormat:@"%d", 1] UTF8String]) );
     
     cg_xml_node_addchildnode(didl_node, item);
     
-    CgXmlNode *dc_title = cg_xml_node_new();
-    cg_xml_node_setname(dc_title, "dc:title");
-    cg_xml_node_setvalue(dc_title, (char *)[[avItem title] UTF8String]);
-    cg_xml_node_addchildnode(item, dc_title);
-    
-    CgXmlNode *upnp_class = cg_xml_node_new();
-    cg_xml_node_setname(upnp_class, "upnp:class");
-    cg_xml_node_setvalue(upnp_class, (char *)[[avItem upnpClass] UTF8String]);
-    cg_xml_node_addchildnode(item, upnp_class);
+    ADD_CHILDNODE_TO_NODE(item, CG_UPNPAV_OBJECT_TITLE, [avItem title]);
+    ADD_CHILDNODE_TO_NODE(item, CG_UPNPAV_OBJECT_UPNPCLASS, [avItem upnpClass]);
     
     for (CGUpnpAvResource *resource in [avItem resources]) {
         
@@ -101,22 +105,18 @@ enum {
         cg_xml_node_addchildnode(item, res);
     }
     
-    if ([avItem albumArtURI]) {
-        
-        CgXmlNode *albumArtURI = cg_xml_node_new();
-        cg_xml_node_setname(albumArtURI, "upnp:albumArtURI");
-        cg_xml_node_setvalue(albumArtURI, ((char *)[[avItem albumArtURI] UTF8String]) );
-        cg_xml_node_addchildnode(item, albumArtURI);
-    }
-    
-    CgXmlNode *date = cg_xml_node_new();
-    cg_xml_node_setname(date, "dc:date");
-    cg_xml_node_setvalue(date, ((char *)[[avItem date] UTF8String]) );
-    cg_xml_node_addchildnode(item, date);
+    ADD_CHILDNODE_TO_NODE(item, CG_UPNPAV_OBJECT_ALBUM, [avItem album]);
+    ADD_CHILDNODE_TO_NODE(item, CG_UPNPAV_OBJECT_ALBUMARTURI, [avItem albumArtURI]);
+    ADD_CHILDNODE_TO_NODE(item, CG_UPNPAV_OBJECT_ARTIST, [avItem artist]);
+    ADD_CHILDNODE_TO_NODE(item, CG_UPNPAV_OBJECT_DATE, [avItem date]);
     
 	[action setArgumentValue:@"0" forName:@"InstanceID"];
 	[action setArgumentValue:[avItem.resourceUrl absoluteString] forName:@"CurrentURI"];
-	[action setArgumentValue:[NSString stringWithFormat:@"%s%s", CG_XML_VERSION_HEADER, cg_xml_node_tostring(didl_node, YES, currentUriMeta)] forName:@"CurrentURIMetaData"];
+    
+    NSMutableString *urlMetaValue = [NSMutableString stringWithUTF8String:cg_xml_node_tostring(didl_node, YES, currentUriMeta)];
+    [urlMetaValue insertString:@CG_UPNP_XML_DECLARATION atIndex:0];
+    
+	[action setArgumentValue:urlMetaValue forName:@"CurrentURIMetaData"];
     
     cg_string_delete(currentUriMeta);
     cg_xml_node_delete(didl_node);
