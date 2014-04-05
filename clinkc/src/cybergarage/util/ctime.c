@@ -64,7 +64,7 @@ void cg_wait(CgSysTime mtime)
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 	b_slp_tsk(mtime);
 #else
-	usleep(mtime*1000);
+	usleep((useconds_t)mtime*1000);
 #endif
 
 	cg_log_debug_l4("Leaving...\n");
@@ -136,7 +136,7 @@ float cg_random()
 	cg_log_debug_l4("Entering...\n");
 
 	if (seedDone == FALSE) {
-		srand(cg_getcurrentsystemtime());
+		srand((unsigned)cg_getcurrentsystemtime());
 		seedDone = TRUE;
 	}
 	

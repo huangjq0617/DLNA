@@ -341,7 +341,7 @@ void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock)
 	content = cg_http_packet_getcontent(httpPkt);
 	contentLen = cg_http_packet_getcontentlength(httpPkt);
 	if (content != NULL && 0 < contentLen)
-		cg_socket_write(sock, content, contentLen);
+		cg_socket_write(sock, content, (int)contentLen);
 
 	cg_log_debug_l4("Leaving...\n");
 }
@@ -419,12 +419,12 @@ long cg_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char *line
 	/* Read content until conLen is reached, or tired of trying */
 	while (readLen < conLen && tries < 20)
 	{
-		readLen += cg_socket_read(sock, (content+readLen), (conLen-readLen));
+		readLen += cg_socket_read(sock, (content+readLen), (int)(conLen-readLen));
 		tries++;
 	}
 	
 	/* Append content to packet */
-	cg_http_packet_appendncontent(httpPkt, content, readLen);
+	cg_http_packet_appendncontent(httpPkt, content, (int)readLen);
 	free(content); content = NULL;
 	
 	if (readLen == conLen)
@@ -452,7 +452,7 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 
 	cg_log_debug_l4("Entering...\n");
 
-	conLen = cg_http_packet_getcontentlength(httpPkt);
+	conLen = (int)cg_http_packet_getcontentlength(httpPkt);
 	content = NULL;
 	if (0 < conLen) {
 		content = (char *)malloc(conLen+1);
@@ -468,7 +468,7 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 		/* Read content until conLen is reached, or tired of trying */
 		while (readLen < conLen && tries < 20)
 		{
-			readLen += cg_socket_read(sock, (content+readLen), (conLen-readLen));
+			readLen += cg_socket_read(sock, (content+readLen), (int)(conLen-readLen));
 			/* Fixed to increment the counter only when cg_socket_read() doesn't read data */
 			if (readLen <= 0)
 				tries++;
@@ -477,7 +477,7 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 		if (readLen <= 0)
 			return TRUE;
 		content[readLen] = '\0';
-		cg_http_packet_setcontentpointer(httpPkt, content, readLen);
+		cg_http_packet_setcontentpointer(httpPkt, content, (int)readLen);
 	}
 	else if (cg_http_packet_getheadervalue(httpPkt, 
 					CG_HTTP_CONTENT_LENGTH) == NULL)
@@ -500,7 +500,7 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 			conLen = 0;
 			while ((readLen = cg_socket_read(sock, readBuf, READBUF_LENGTH)) > 0)
 			{
-				cg_http_packet_appendncontent(httpPkt, readBuf, readLen);
+				cg_http_packet_appendncontent(httpPkt, readBuf, (int)readLen);
 				conLen += readLen;
 			}
 

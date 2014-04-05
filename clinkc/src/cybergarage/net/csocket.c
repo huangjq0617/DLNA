@@ -752,7 +752,7 @@ int cg_socket_read(CgSocket *sock, char *buffer, int bufferLen)
 #elif defined(ITRON)
 	recvLen = tcp_rcv_dat(sock->id, buffer, bufferLen, TMO_FEVR);
 #else
-	recvLen = recv(sock->id, buffer, bufferLen, 0);
+	recvLen = (int)recv(sock->id, buffer, bufferLen, 0);
 #endif
 
 #if defined(CG_USE_OPENSSL)
@@ -806,7 +806,7 @@ int cg_socket_write(CgSocket *sock, char *cmd, int cmdLen)
 #elif defined(ITRON)
 		nSent = tcp_snd_dat(sock->id, cmd + cmdPos, cmdLen, TMO_FEVR);
 #else
-		nSent = send(sock->id, cmd + cmdPos, cmdLen, 0);
+		nSent = (int)send(sock->id, cmd + cmdPos, cmdLen, 0);
 #endif
 			
 #if defined(CG_USE_OPENSSL)
@@ -974,7 +974,7 @@ int cg_socket_sendto(CgSocket *sock, char *addr, int port, char *data, int dataL
 	cg_socket_setmulticastttl(sock, CG_NET_SOCKET_MULTICAST_DEFAULT_TTL);
 	
 	if (0 <= sock->id)
-		sentLen = sendto(sock->id, data, dataLen, 0, addrInfo->ai_addr, addrInfo->ai_addrlen);
+		sentLen = (int)sendto(sock->id, data, dataLen, 0, addrInfo->ai_addr, addrInfo->ai_addrlen);
 	freeaddrinfo(addrInfo);
 #endif
 
@@ -1016,7 +1016,7 @@ int cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
 #else
 	struct sockaddr_storage from;
 	socklen_t fromLen = sizeof(from);
-	recvLen = recvfrom(sock->id, recvBuf, sizeof(recvBuf)-1, 0, (struct sockaddr *)&from, &fromLen);
+	recvLen = (int)recvfrom(sock->id, recvBuf, sizeof(recvBuf)-1, 0, (struct sockaddr *)&from, &fromLen);
 #endif
 
 	cg_log_debug_l4("Entering...\n");
@@ -1048,7 +1048,7 @@ int cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
 
 	if (getnameinfo((struct sockaddr *)&from, fromLen, remoteAddr, sizeof(remoteAddr), remotePort, sizeof(remotePort), NI_NUMERICHOST | NI_NUMERICSERV) == 0) {
 		cg_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
-		cg_socket_datagram_packet_setremoteport(dgmPkt, atol(remotePort));
+		cg_socket_datagram_packet_setremoteport(dgmPkt, (int)atol(remotePort));
 	}
 
 	cg_log_debug_s("From pointer %p\n", &from);

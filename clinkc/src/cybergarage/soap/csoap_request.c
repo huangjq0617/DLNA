@@ -194,7 +194,7 @@ BOOL cg_soap_request_sethttprequest(CgSoapRequest *soapReq, CgHttpRequest *httpR
 	soapReq->isHttpReqCreated = FALSE;
 
 	content = cg_http_request_getcontent(httpReq);
-	contentLen = cg_http_request_getcontentlength(httpReq);
+	contentLen = (int)cg_http_request_getcontentlength(httpReq);
 
 	if (content == NULL || contentLen <=0)
 		return FALSE;
@@ -270,7 +270,7 @@ CgSoapResponse *cg_soap_request_post(CgSoapRequest *soapReq, char *ipaddr, int p
 	cg_soap_response_sethttpresponse(soapReq->soapRes,httpRes);
 
 	content = cg_http_response_getcontent(httpRes);
-	contentLen = cg_http_response_getcontentlength(httpRes);
+	contentLen = (int)cg_http_response_getcontentlength(httpRes);
 	if (content == NULL || contentLen <= 0)
 		return soapReq->soapRes;
 

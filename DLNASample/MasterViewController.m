@@ -207,7 +207,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 		cell = [[[UPnPDeviceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELLID] autorelease];
 	}
 	
-	int row = [indexPath indexAtPosition:1];
+	int row = (int)[indexPath indexAtPosition:1];
     
 	
 	if (row < [self.dataSource count]) {
@@ -303,7 +303,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 //        }
 //    }
     CGUpnpDevice *device = [controlPoint deviceForUDN:deviceUdn];
-    if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaRenderer:1"]) {
+    if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
         self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
         dispatch_sync(dispatch_get_main_queue(), ^{
     [self.tableView reloadData];
@@ -314,7 +314,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceAdded:(NSString *)deviceUdn
 {
     CGUpnpDevice *device = [controlPoint deviceForUDN:deviceUdn];
-    if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaRenderer:1"]) {
+    if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
         self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -325,7 +325,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceRemoved:(NSString *)deviceUdn
 {
     CGUpnpDevice *device = [controlPoint deviceForUDN:deviceUdn];
-    if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaRenderer:1"]) {
+    if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
         self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
         dispatch_sync(dispatch_get_main_queue(), ^{
     [self.tableView reloadData];

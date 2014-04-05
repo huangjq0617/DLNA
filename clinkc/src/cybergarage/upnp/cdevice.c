@@ -311,7 +311,7 @@ BOOL cg_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url)
 	content = cg_http_response_getcontent(httpRes);
 	contentLen = cg_http_response_getcontentlength(httpRes);
 
-	parseSuccess = cg_upnp_device_parsedescription(dev, content, contentLen);
+	parseSuccess = cg_upnp_device_parsedescription(dev, content, (int)contentLen);
 
 	cg_http_request_delete(httpReq);
 	
@@ -1253,7 +1253,7 @@ BOOL cg_upnp_device_announcefrom(CgUpnpDevice *dev, char *bindAddr)
 	ssdpReq = cg_upnp_ssdprequest_new();
 	
 	cg_upnp_ssdprequest_setserver(ssdpReq, cg_upnp_getservername(ssdpLineBuf, sizeof(ssdpLineBuf)));
-	cg_upnp_ssdprequest_setleasetime(ssdpReq, cg_upnp_device_getleasetime(dev));
+	cg_upnp_ssdprequest_setleasetime(ssdpReq, (int)cg_upnp_device_getleasetime(dev));
 	cg_upnp_ssdprequest_setlocation(ssdpReq, cg_upnp_device_getlocationurl(dev, bindAddr, ssdpLineBuf, sizeof(ssdpLineBuf)));
 	cg_upnp_ssdprequest_setnts(ssdpReq, CG_UPNP_SSDP_NTS_ALIVE);
 	
@@ -1447,7 +1447,7 @@ BOOL cg_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdp
 	cg_upnp_device_getlocationurl(rootDev, localAddr, rootDevLocation, sizeof(rootDevLocation));
 
 	ssdpRes = cg_upnp_ssdpresponse_new();
-	cg_upnp_ssdpresponse_setleasetime(ssdpRes, cg_upnp_device_getleasetime(dev));
+	cg_upnp_ssdpresponse_setleasetime(ssdpRes, (int)cg_upnp_device_getleasetime(dev));
 	cg_upnp_ssdpresponse_setdate(ssdpRes, cg_http_getdate(cg_getcurrentsystemtime(), httpDateStr, sizeof(httpDateStr)));
 	cg_upnp_ssdpresponse_setst(ssdpRes, st);
 

@@ -46,7 +46,7 @@
 {
 	if (!cObject)
 		return NO;
-	return cg_upnp_service_parsedescription(cObject, (char *)[xmlDesc UTF8String], [xmlDesc length]);
+	return cg_upnp_service_parsedescription(cObject, (char *)[xmlDesc UTF8String], (int)[xmlDesc length]);
 }
 
 - (NSString *)serviceId

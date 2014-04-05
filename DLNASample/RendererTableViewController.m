@@ -86,7 +86,7 @@
 		cell = [[[UPnPDeviceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELLID] autorelease];
 	}
 	
-	int row = [indexPath indexAtPosition:1];	
+	int row = (int)[indexPath indexAtPosition:1];
 	if (row < [self.dataSource count]) {
 		CGUpnpDevice *device = [self.dataSource objectAtIndex:row];
 		[cell setDevice:device];

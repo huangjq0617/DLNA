@@ -90,7 +90,7 @@ void cg_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq)
 				if (seq == CG_UPNP_EVENT_MAX_SEQ) seq = 0;
 				
 				/* Set event key */
-				cg_upnp_service_seteventkey(service, seq);
+				cg_upnp_service_seteventkey(service, (int)seq);
 				
 				notifyListeners = 1;
 				propList = cg_upnp_event_notify_request_getpropertylist(notifyReq); 

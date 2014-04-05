@@ -279,7 +279,7 @@ CgUpnpPropertyList *cg_upnp_event_notify_request_getpropertylist(CgUpnpNotifyReq
 	cg_log_debug_l4("Entering...\n");
 
 	sid = cg_upnp_event_notify_request_getsid(notifyReq);
-	seq = cg_upnp_event_notify_request_getseq(notifyReq);
+	seq = (int)cg_upnp_event_notify_request_getseq(notifyReq);
 		
 	propList = cg_upnp_event_notify_request_getpropertylistonly(notifyReq);
 	cg_upnp_propertylist_clear(propList);

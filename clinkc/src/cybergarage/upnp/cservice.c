@@ -317,7 +317,7 @@ BOOL cg_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url)
 	content = cg_http_response_getcontent(httpRes);
 	contentLen = cg_http_response_getcontentlength(httpRes);
 
-	parseSuccess = cg_upnp_service_parsedescription(service, content, contentLen);
+	parseSuccess = cg_upnp_service_parsedescription(service, content, (int)contentLen);
 
 	cg_http_request_delete(httpReq);
 	
@@ -825,7 +825,7 @@ BOOL cg_upnp_service_announcefrom(CgUpnpService *service, char *bindAddr)
 	
 	ssdpReq = cg_upnp_ssdprequest_new();
 	cg_upnp_ssdprequest_setserver(ssdpReq, cg_upnp_getservername(ssdpLineBuf, sizeof(ssdpLineBuf)));
-	cg_upnp_ssdprequest_setleasetime(ssdpReq, cg_upnp_device_getleasetime(dev));
+	cg_upnp_ssdprequest_setleasetime(ssdpReq, (int)cg_upnp_device_getleasetime(dev));
 	cg_upnp_ssdprequest_setlocation(ssdpReq, cg_upnp_device_getlocationurl(rootDev, bindAddr, ssdpLineBuf, sizeof(ssdpLineBuf)));
 	cg_upnp_ssdprequest_setnts(ssdpReq, CG_UPNP_SSDP_NTS_ALIVE);
 	cg_upnp_ssdprequest_setnt(ssdpReq, cg_upnp_service_getnotifyservicetypent(service, ssdpLineBuf, sizeof(ssdpLineBuf)));

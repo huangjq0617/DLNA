@@ -155,14 +155,14 @@
 {	
 	if (![self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:[NSDictionary dictionary]])
 		return 0;
-	return [[[self browseAction] argumentValueForName:@"TotalMatches"] integerValue];
+	return (int)[[[self browseAction] argumentValueForName:@"TotalMatches"] integerValue];
 }
 
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger)aRequestedCount startingIndex:(NSUInteger)aStartingIndex
 {	
 	NSMutableDictionary *browseOptions = [NSMutableDictionary dictionary];
-	[browseOptions setObject:[NSString stringWithFormat:@"%d", aRequestedCount] forKey:@"RequestedCount"];
-	[browseOptions setObject:[NSString stringWithFormat:@"%d", aStartingIndex] forKey:@"StartingIndex"];
+	[browseOptions setObject:[NSString stringWithFormat:@"%lu", (unsigned long)aRequestedCount] forKey:@"RequestedCount"];
+	[browseOptions setObject:[NSString stringWithFormat:@"%lu", (unsigned long)aStartingIndex] forKey:@"StartingIndex"];
 	BOOL postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
 	
 #if defined (CG_UPNPAVSERVER_BROWSEACTION_RETRY_ENABLED)

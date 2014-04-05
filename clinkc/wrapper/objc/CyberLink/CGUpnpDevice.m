@@ -61,7 +61,7 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 {
 	if (!cObject)
 		return NO;
-	return cg_upnp_device_parsedescription(cObject, (char *)[xmlDesc UTF8String], [xmlDesc length]);
+	return cg_upnp_device_parsedescription(cObject, (char *)[xmlDesc UTF8String], (int)[xmlDesc length]);
 }
 
 - (void) dealloc

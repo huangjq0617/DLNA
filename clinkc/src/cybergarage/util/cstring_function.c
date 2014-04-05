@@ -85,7 +85,7 @@ int cg_strlen(char *str)
 {
  cg_log_debug_l5("Entering...\n");
 
- return (str == NULL) ? 0 : strlen(str);
+ return (str == NULL) ? 0 : (int)strlen(str);
 
  cg_log_debug_l5("Leaving...\n");
 }
@@ -218,7 +218,7 @@ int cg_strstr(char *haystack, char *needle)
 	strPos = strstr(haystack, needle);
 	if (strPos == NULL)
 		return -1;
-	return (strPos - haystack);
+	return (int)(strPos - haystack);
 
 	cg_log_debug_l5("Leaving...\n");
 }
