@@ -22,7 +22,7 @@
 
 @synthesize contentDirectory;
 @synthesize cAvObject;
-@synthesize delegate;
+@synthesize serverDelegate;
 
 #if defined(TARGET_OS_IPHONE)
 @synthesize thumbnailImage;
@@ -153,7 +153,7 @@
 
 - (int)browseDirectChildrenTotalMatches:(NSString *)aObjectId
 {	
-	if (![self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:[NSArray array]])
+	if (![self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:[NSDictionary dictionary]])
 		return 0;
 	return [[[self browseAction] argumentValueForName:@"TotalMatches"] integerValue];
 }
@@ -223,9 +223,9 @@
 	}
 
 	/* CGUpnpAvServerDelegate */
-	if ([[self delegate] respondsToSelector:@selector(upnpAvServer:browse:avObject:)]) {
+	if ([[self serverDelegate] respondsToSelector:@selector(upnpAvServer:browse:avObject:)]) {
 		for (CGUpnpAvObject *avObj in avObjArray)
-			[[self delegate] upnpAvServer:self browse:browseAction avObject:avObj];
+			[[self serverDelegate] upnpAvServer:self browse:browseAction avObject:avObj];
 	}
 	
 	return avObjArray;	
@@ -286,9 +286,9 @@
 	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
 	
 	/* CGUpnpAvServerDelegate */
-	if ([[self delegate] respondsToSelector:@selector(upnpAvServer:search:avObject:)]) {
+	if ([[self serverDelegate] respondsToSelector:@selector(upnpAvServer:search:avObject:)]) {
 		for (CGUpnpAvObject *avObj in avObjArray)
-			[[self delegate] upnpAvServer:self search:action avObject:avObj];
+			[[self serverDelegate] upnpAvServer:self search:action avObject:avObj];
 	}
 	
 	return avObjArray;	

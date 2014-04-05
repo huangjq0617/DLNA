@@ -34,7 +34,7 @@
         self.avItem = anAvItem;
         AppDelegate* app = [[UIApplication sharedApplication] delegate];
         self.renderer = app.avRenderer;
-        self.renderer.delegate = self;
+        self.renderer.deviceDelegate = self;
         self.isPlay = NO;
     }
     return self;

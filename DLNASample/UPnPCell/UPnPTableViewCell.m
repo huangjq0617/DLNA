@@ -26,9 +26,9 @@ UPNPAVOBJECT_CELL_DATE,
 #define UPNPAVOBJECT_CELL_LOW_FONT_SIZE 12
 #define UPNPAVOBJECT_CELL_LOW_HEIGHT (UPNPAVOBJECT_CELL_LOW_FONT_SIZE + 4)
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier 
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-	if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
+	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		CGRect cellFrameRect = [self frame];
 		int cellWidth =  cellFrameRect.size.width - UPNPAVOBJECT_CELL_DI_WIDTH;
 		int cellHeight =  cellFrameRect.size.height;
@@ -50,7 +50,7 @@ UPNPAVOBJECT_CELL_DATE,
 										  (cellHeight - UPNPAVOBJECT_CELL_LOW_HEIGHT))] autorelease];
 		nameLabel.tag = UPNPAVOBJECT_CELL_NAME;
 		nameLabel.font = [UIFont systemFontOfSize:UPNPAVOBJECT_CELL_HEIGHT_FONT_SIZE];
-		nameLabel.textAlignment = UITextAlignmentLeft;
+		nameLabel.textAlignment = NSTextAlignmentLeft;
 		nameLabel.textColor = [UIColor blackColor];
 		nameLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
 		[self.contentView addSubview:nameLabel];
@@ -63,7 +63,7 @@ UPNPAVOBJECT_CELL_DATE,
 										  UPNPAVOBJECT_CELL_LOW_HEIGHT)] autorelease];
 		mimeLabel.tag = UPNPAVOBJECT_CELL_MIME;
 		mimeLabel.font = [UIFont systemFontOfSize:UPNPAVOBJECT_CELL_LOW_FONT_SIZE];
-		mimeLabel.textAlignment = UITextAlignmentLeft;
+		mimeLabel.textAlignment = NSTextAlignmentLeft;
 		mimeLabel.textColor = [UIColor darkGrayColor];
 		mimeLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
 		[self.contentView addSubview:mimeLabel];
@@ -76,7 +76,7 @@ UPNPAVOBJECT_CELL_DATE,
 										  UPNPAVOBJECT_CELL_LOW_HEIGHT)] autorelease];
 		dateLabel.tag = UPNPAVOBJECT_CELL_DATE;
 		dateLabel.font = [UIFont systemFontOfSize:UPNPAVOBJECT_CELL_LOW_FONT_SIZE];
-		dateLabel.textAlignment = UITextAlignmentRight;
+		dateLabel.textAlignment = NSTextAlignmentRight;
 		dateLabel.textColor = [UIColor darkGrayColor];
 		dateLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
 		[self.contentView addSubview:dateLabel];

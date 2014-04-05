@@ -34,7 +34,7 @@ typedef void CgUpnpDevice;
 	BOOL isCObjectCreated;
 }
 @property(assign) CgUpnpDevice *cObject;
-@property(assign) id<CGUpnpDeviceDelegate> delegate;
+@property(assign) id<CGUpnpDeviceDelegate> deviceDelegate;
 /**
  * Create a new UPnP device.
  * 

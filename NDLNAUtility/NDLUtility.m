@@ -65,7 +65,7 @@
 
 + (NSArray*)getContainer:(CGUpnpAvObject*)aAvObject objectId:(NSString*)aObjectId
 {
-    CGUpnpService *conDirService = [aAvObject getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
+    CGUpnpService *conDirService = [(CGUpnpDevice *)aAvObject getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
 		return nil;
 

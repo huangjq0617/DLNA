@@ -406,7 +406,7 @@ char *md5buf)
   len = cg_strlen(string);
 
   MD5Init(&context);
-  MD5Update(&context, string,len);
+  MD5Update(&context, (unsigned char *)string,len);
   MD5Final(digest, &context);
 
   sprintf(md5buf, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", 

@@ -20,7 +20,7 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 @implementation CGUpnpDevice
 
 @synthesize cObject;
-@synthesize delegate;
+@synthesize deviceDelegate;
 
 - (id) init
 {
@@ -395,10 +395,10 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *cUpnpAction)
 	if (upnpDevice == nil)
 		return NO;
 	
-	if ([[upnpDevice delegate] respondsToSelector:@selector(device:service:actionReceived:)]) {
+	if ([[upnpDevice deviceDelegate] respondsToSelector:@selector(device:service:actionReceived:)]) {
 		CGUpnpService *upnpService = [[CGUpnpService alloc] initWithCObject:(void *)cUpnpService];
 		CGUpnpAction *upnpAction = [[CGUpnpAction alloc] initWithCObject:(void *)upnpAction];
-		BOOL doActionResult = [[upnpDevice delegate] device:upnpDevice service:upnpService actionReceived:upnpAction];
+		BOOL doActionResult = [[upnpDevice deviceDelegate] device:upnpDevice service:upnpService actionReceived:upnpAction];
 		[upnpAction release];
 		[upnpService release];
 		return doActionResult;

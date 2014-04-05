@@ -154,8 +154,6 @@
 		A498970A1553D29F0004DD81 /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A49896FD1553D29F0004DD81 /* CGUpnpAction.m */; };
 		A498970B1553D29F0004DD81 /* CGUpnpControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = A49896FE1553D29F0004DD81 /* CGUpnpControlPoint.h */; };
 		A498970C1553D29F0004DD81 /* CGUpnpControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = A49896FF1553D29F0004DD81 /* CGUpnpControlPoint.m */; };
-		A498970D1553D29F0004DD81 /* CGUpnpDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = A49897001553D29F0004DD81 /* CGUpnpDevice.h */; };
-		A498970E1553D29F0004DD81 /* CGUpnpDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A49897011553D29F0004DD81 /* CGUpnpDevice.m */; };
 		A498970F1553D29F0004DD81 /* CGUpnpIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = A49897021553D29F0004DD81 /* CGUpnpIcon.h */; };
 		A49897101553D29F0004DD81 /* CGUpnpIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = A49897031553D29F0004DD81 /* CGUpnpIcon.m */; };
 		A49897111553D29F0004DD81 /* CGUpnpService.h in Headers */ = {isa = PBXBuildFile; fileRef = A49897041553D29F0004DD81 /* CGUpnpService.h */; };
@@ -397,8 +395,6 @@
 		A49896FD1553D29F0004DD81 /* CGUpnpAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAction.m; sourceTree = "<group>"; };
 		A49896FE1553D29F0004DD81 /* CGUpnpControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpControlPoint.h; sourceTree = "<group>"; };
 		A49896FF1553D29F0004DD81 /* CGUpnpControlPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpControlPoint.m; sourceTree = "<group>"; };
-		A49897001553D29F0004DD81 /* CGUpnpDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpDevice.h; sourceTree = "<group>"; };
-		A49897011553D29F0004DD81 /* CGUpnpDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpDevice.m; sourceTree = "<group>"; };
 		A49897021553D29F0004DD81 /* CGUpnpIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpIcon.h; sourceTree = "<group>"; };
 		A49897031553D29F0004DD81 /* CGUpnpIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpIcon.m; sourceTree = "<group>"; };
 		A49897041553D29F0004DD81 /* CGUpnpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpService.h; sourceTree = "<group>"; };
@@ -939,8 +935,6 @@
 				A49896FD1553D29F0004DD81 /* CGUpnpAction.m */,
 				A49896FE1553D29F0004DD81 /* CGUpnpControlPoint.h */,
 				A49896FF1553D29F0004DD81 /* CGUpnpControlPoint.m */,
-				A49897001553D29F0004DD81 /* CGUpnpDevice.h */,
-				A49897011553D29F0004DD81 /* CGUpnpDevice.m */,
 				A49897021553D29F0004DD81 /* CGUpnpIcon.h */,
 				A49897031553D29F0004DD81 /* CGUpnpIcon.m */,
 				A49897041553D29F0004DD81 /* CGUpnpService.h */,
@@ -1261,7 +1255,6 @@
 				21529E0714226D530099BAB1 /* CGUpnpStateVariable.h in Headers */,
 				A49897091553D29F0004DD81 /* CGUpnpAction.h in Headers */,
 				A498970B1553D29F0004DD81 /* CGUpnpControlPoint.h in Headers */,
-				A498970D1553D29F0004DD81 /* CGUpnpDevice.h in Headers */,
 				A498970F1553D29F0004DD81 /* CGUpnpIcon.h in Headers */,
 				A49897111553D29F0004DD81 /* CGUpnpService.h in Headers */,
 				A49897131553D29F0004DD81 /* CGUpnpStateVariable.h in Headers */,
@@ -1346,7 +1339,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "clinkc" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1476,7 +1469,6 @@
 				21529E0814226D530099BAB1 /* CGUpnpStateVariable.m in Sources */,
 				A498970A1553D29F0004DD81 /* CGUpnpAction.m in Sources */,
 				A498970C1553D29F0004DD81 /* CGUpnpControlPoint.m in Sources */,
-				A498970E1553D29F0004DD81 /* CGUpnpDevice.m in Sources */,
 				A49897101553D29F0004DD81 /* CGUpnpIcon.m in Sources */,
 				A49897121553D29F0004DD81 /* CGUpnpService.m in Sources */,
 				A49897141553D29F0004DD81 /* CGUpnpStateVariable.m in Sources */,
@@ -1519,7 +1511,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/clinkc.dst;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1528,6 +1519,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = clinkc_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "CLOG_DEBUG=1";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				HEADER_SEARCH_PATHS = (
 					../../../wrapper/objc,
 					../../../std/av/include,
@@ -1544,12 +1536,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/clinkc.dst;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = clinkc_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "CLOG_DEBUG=1";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				HEADER_SEARCH_PATHS = (
 					../../../wrapper/objc,
 					../../../std/av/include,
@@ -1565,7 +1557,6 @@
 		1DEB922308733DC00010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1576,6 +1567,7 @@
 					../../../include,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PROVISIONING_PROFILE = "CEC84FC6-99F3-4EAC-B542-EE1128823063";
@@ -1586,7 +1578,6 @@
 		1DEB922408733DC00010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

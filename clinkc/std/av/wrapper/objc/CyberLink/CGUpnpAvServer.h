@@ -38,7 +38,7 @@ typedef void CgUpnpAvServer;
 }
 @property(readonly) CGUpnpAvContentDirectory *contentDirectory;
 @property(readonly) CgUpnpAvServer *cAvObject;
-@property(assign) id<CGUpnpAvServerDelegate> delegate;
+@property(assign) id<CGUpnpAvServerDelegate> serverDelegate;
 
 #if defined(TARGET_OS_IPHONE)
 @property(retain) UIImage *thumbnailImage;

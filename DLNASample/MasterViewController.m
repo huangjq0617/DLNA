@@ -24,6 +24,8 @@
 @synthesize avController = _avController;
 @synthesize renderers = _renderers;
 
+void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum);
+
 #if 0
 void PrintContentDirectory(CGUpnpAction *browseAction, int indent, NSString *objectId)
 {
@@ -202,7 +204,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 	
 	UPnPDeviceTableViewCell *cell = (UPnPDeviceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CELLID];
 	if (cell == nil) {
-		cell = [[[UPnPDeviceTableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CELLID] autorelease];
+		cell = [[[UPnPDeviceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELLID] autorelease];
 	}
 	
 	int row = [indexPath indexAtPosition:1];
