@@ -73,16 +73,14 @@ enum {
     cg_xml_node_addchildnode(didl_node, item);
     
     CgString *currentUriMeta = cg_string_new();
-    
-	[action setArgumentValue:@"0" forName:@"InstanceID"];
-	[action setArgumentValue:[avItem.resourceUrl absoluteString] forName:@"CurrentURI"];
-    
     NSMutableString *urlMetaValue = [NSMutableString stringWithUTF8String:cg_xml_node_tostring(didl_node, YES, currentUriMeta)];
     [urlMetaValue insertString:@CG_UPNP_XML_DECLARATION atIndex:0];
     
+	[action setArgumentValue:@"0" forName:@"InstanceID"];
+	[action setArgumentValue:[avItem.resourceUrl absoluteString] forName:@"CurrentURI"];
 	[action setArgumentValue:urlMetaValue forName:@"CurrentURIMetaData"];
     
-    cg_xml_node_print(didl_node);
+//    cg_xml_node_print(didl_node);
     
     cg_string_delete(currentUriMeta);
     cg_xml_node_delete(didl_node);
