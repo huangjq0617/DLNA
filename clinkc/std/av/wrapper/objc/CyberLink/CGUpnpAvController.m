@@ -44,7 +44,7 @@
 // Media Server
 ////////////////////////////////////////////////////////////
 
-- (NSArray *)servers;
+- (NSArray *)servers
 {
 	NSArray *devices = [self devices];
 	NSMutableArray *serverArray = [[[NSMutableArray alloc] init] autorelease];
@@ -194,7 +194,7 @@
 // Media Renderer
 ////////////////////////////////////////////////////////////
 
-- (NSArray *)renderers;
+- (NSArray *)renderers
 {
 	NSArray *devices = [self devices];
 	NSMutableArray *rendererrArray = [[[NSMutableArray alloc] init] autorelease];

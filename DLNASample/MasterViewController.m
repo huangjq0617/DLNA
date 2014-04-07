@@ -281,7 +281,6 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
     
     self.avController = (CGUpnpAvController*)controlPoint;
     
-    
     self.renderers =  [((CGUpnpAvController*)controlPoint) renderers];
 //    NSArray* renderers = [((CGUpnpAvController*)controlPoint) renderers];
 //    if ([renderers count] > 0) {
@@ -305,9 +304,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
     CGUpnpDevice *device = [controlPoint deviceForUDN:deviceUdn];
     if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
         self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-    [self.tableView reloadData];
-        });
+        [self.tableView reloadData];
     }
 }
 
@@ -316,9 +313,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
     CGUpnpDevice *device = [controlPoint deviceForUDN:deviceUdn];
     if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
         self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+        [self.tableView reloadData];
     }
 }
 
@@ -327,11 +322,10 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
     CGUpnpDevice *device = [controlPoint deviceForUDN:deviceUdn];
     if ([device isDeviceType:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
         self.dataSource = [((CGUpnpAvController*)controlPoint) servers];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-    [self.tableView reloadData];
-        });
+        [self.tableView reloadData];
     }
 }
+
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceInvalid:(NSString *)deviceUdn
 {
 }

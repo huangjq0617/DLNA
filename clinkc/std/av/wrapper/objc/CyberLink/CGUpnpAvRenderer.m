@@ -174,7 +174,7 @@ enum {
 		return NO;
 	
 	[action setArgumentValue:@"0" forName:@"InstanceID"];
-	[action setArgumentValue:@"ABS_TIME" forName:@"Unit"];
+	[action setArgumentValue:@"REL_TIME" forName:@"Unit"];
 	[action setArgumentValue:[NSString stringWithDurationTime:absTime] forName:@"Target"];
 	
 	if (![action post])

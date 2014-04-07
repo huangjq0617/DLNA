@@ -79,6 +79,7 @@
     
     if ([self.renderer setAVTransportAVItem:self.avItem]) {
         [self.renderer play];
+        [self.renderer seek:100];
         self.isPlay = [self.renderer isPlaying];
     } 
     
