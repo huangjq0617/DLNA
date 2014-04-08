@@ -91,7 +91,7 @@ enum {
 	return YES;
 }
 
-- (BOOL)play;
+- (BOOL)play
 {
 	CGUpnpAction *action = [self actionOfTransportServiceForName:@"Play"];
 	if (!action)
@@ -108,7 +108,7 @@ enum {
 	return YES;
 }
 
-- (BOOL)stop;
+- (BOOL)stop
 {
 	CGUpnpAction *action = [self actionOfTransportServiceForName:@"Stop"];
 	if (!action)

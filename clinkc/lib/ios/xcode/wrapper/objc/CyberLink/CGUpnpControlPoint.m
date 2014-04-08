@@ -130,47 +130,44 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, char
 
 static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, char* udn, CgUpnpDeviceStatus status)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        CGUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_getuserdata(cCtrlPoint);
-        if (ctrlPoint == nil)
-            return;
-        
-        if ([ctrlPoint delegate] == nil)
-            return;
-        
-        NSString *deviceUdn = [[NSString alloc ] initWithUTF8String:udn];
-        
-        switch (status) {
-            case CgUpnpDeviceStatusAdded:
-			{
-				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceAdded:)])
-					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceAdded:deviceUdn];
-			}
-                break;
-            case CgUpnpDeviceStatusUpdated:
-			{
-				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceUpdated:)])
-					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceUpdated:deviceUdn];
-			}
-                break;
-            case CgUpnpDeviceStatusRemoved:
-			{
-				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceRemoved:)])
-					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceRemoved:deviceUdn];
-			}
-                break;
-            case CgUpnpDeviceStatusInvalid:
-			{
-				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceInvalid:)])
-					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceInvalid:deviceUdn];
-			}
-                break;
-            default:
-                break;
+    CGUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_getuserdata(cCtrlPoint);
+    if (ctrlPoint == nil)
+        return;
+    
+    if ([ctrlPoint delegate] == nil)
+        return;
+    
+    NSString *deviceUdn = [[NSString alloc ] initWithUTF8String:udn];
+    
+    switch (status) {
+        case CgUpnpDeviceStatusAdded:
+        {
+            if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceAdded:)])
+                [[ctrlPoint delegate] controlPoint:ctrlPoint deviceAdded:deviceUdn];
         }
-        
-        [deviceUdn release];
-    });
+            break;
+        case CgUpnpDeviceStatusUpdated:
+        {
+            if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceUpdated:)])
+                [[ctrlPoint delegate] controlPoint:ctrlPoint deviceUpdated:deviceUdn];
+        }
+            break;
+        case CgUpnpDeviceStatusRemoved:
+        {
+            if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceRemoved:)])
+                [[ctrlPoint delegate] controlPoint:ctrlPoint deviceRemoved:deviceUdn];
+        }
+            break;
+        case CgUpnpDeviceStatusInvalid:
+        {
+            if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceInvalid:)])
+                [[ctrlPoint delegate] controlPoint:ctrlPoint deviceInvalid:deviceUdn];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    [deviceUdn release];
 }
 
