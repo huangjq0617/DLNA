@@ -8,6 +8,8 @@
 
 #import "RendererTableViewController.h"
 #import "AppDelegate.h"
+#include <cybergarage/xml/cxml.h>
+#include <cybergarage/upnp/std/av/cupnpav.h>
 #import <CyberLink/UPnPAV.h>
 #import "UPnPDeviceTableViewCell.h"
 
@@ -149,6 +151,43 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+    
+    {
+        CgXmlNode *item = cg_xml_node_new();
+        cg_xml_node_setname(item, "item");
+        cg_xml_node_setattribute(item, CG_UPNPAV_OBJECT_ID, "0" );
+        cg_xml_node_setattribute(item, CG_UPNPAV_OBJECT_PARENTID, "0" );
+        cg_xml_node_setattribute(item, CG_UPNPAV_OBJECT_RESTRICTED, "1" );
+        
+        CgXmlNode *title = cg_xml_node_new();
+        cg_xml_node_setname(title, CG_UPNPAV_OBJECT_TITLE);
+        cg_xml_node_setvalue(title, "");
+        
+        cg_xml_node_addchildnode(item, title);
+        
+        CgXmlNode *upnpClass = cg_xml_node_new();
+        cg_xml_node_setname(upnpClass, CG_UPNPAV_OBJECT_UPNPCLASS);
+        cg_xml_node_setvalue(upnpClass, (char *)[@"object.item.videoItem" UTF8String]);
+        
+        cg_xml_node_addchildnode(item, upnpClass);
+        
+        CgXmlNode *res = cg_xml_node_new();
+        cg_xml_node_setname(res, "res");
+        cg_xml_node_setattribute(res, "protocolInfo", "http-get:*:video/mp4:*" );
+        cg_xml_node_setvalue(res, ((char *)[@"http://123.125.86.30/vkp.tc.qq.com/w0014m0qccd.mp4?vkey=CD8B6486754FE9FF7B05AED4E71473A43190BE08CFFB81E5B1BD464EBF1FA118D62EE3A334F53FD4CBA8D41D18138704B4A11CD0166BFF95&br=62589&platform=0&fmt=mp4&level=0&type=mp4" UTF8String]) );
+        
+        cg_xml_node_addchildnode(item, res);
+        
+        CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:item];
+        [avItem addResource:[[CGUpnpAvResource alloc] initWithXMLNode:res]];
+        
+        cg_xml_node_delete(item);
+        
+        BOOL success = NO;
+        if ([appDelagete.avRenderer setAVTransportAVItem:avItem]) {
+            success = [appDelagete.avRenderer play];
+        }
+    }
 }
 
 @end
