@@ -1235,7 +1235,12 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 				cg_net_url_setquery(genURL, cg_net_url_getquery(temp));
 			}
 			else {
-				cg_net_url_addpath(genURL, cg_net_url_getpath(temp));
+                if (cg_net_url_haspath(genURL) && cg_net_url_getpath(genURL)[0] != '/') {
+                    cg_net_url_setpath(genURL, cg_net_url_getpath(temp));
+                }
+                else {
+                    cg_net_url_addpath(genURL, cg_net_url_getpath(temp));
+                }
 				cg_net_url_setquery(genURL, cg_net_url_getquery(temp));
 				cg_net_url_rebuild(genURL);
 			}

@@ -101,6 +101,7 @@
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <sys/ioctl.h>
 #endif
 #endif
 
@@ -705,7 +706,37 @@ BOOL cg_socket_connect(CgSocket *sock, char *addr, int port)
 		return FALSE;
 	if (cg_socket_isbound(sock) == FALSE)
 		cg_socket_setid(sock, socket(toaddrInfo->ai_family, toaddrInfo->ai_socktype, 0));
-	ret = connect(sock->id, toaddrInfo->ai_addr, toaddrInfo->ai_addrlen);
+    {
+        int error=-1, len;
+        len = sizeof(int);
+        struct timeval tm;
+        fd_set set;
+        unsigned long ul = 1;
+        ioctl(sock->id, FIONBIO, &ul);  // 设置为非阻塞模式
+        if (connect(sock->id, toaddrInfo->ai_addr, toaddrInfo->ai_addrlen) == -1) {
+            tm.tv_sec = 3;
+            tm.tv_usec = 0;
+            FD_ZERO(&set);
+            FD_SET(sock->id, &set);
+            if (select(sock->id + 1, NULL, &set, NULL, &tm) > 0) {
+                getsockopt(sock->id, SOL_SOCKET, SO_ERROR, &error, (socklen_t *)&len);
+                if (error == 0) {
+                    ret = 0;
+                }
+                else {
+                    ret = -1;
+                }
+            }
+            else {
+                ret = -1;
+            }
+        }
+        else {
+            ret = 0;
+        }
+        ul = 0;
+        ioctl(sock->id, FIONBIO, &ul);  // 设置为阻塞模式
+    }
 	freeaddrinfo(toaddrInfo);
 #endif
 
