@@ -150,6 +150,8 @@
 		219B8E62131FD1D7003F8530 /* cthread.h in Headers */ = {isa = PBXBuildFile; fileRef = 219B8E3B131FD1D7003F8530 /* cthread.h */; };
 		219B8E63131FD1D7003F8530 /* ctime.h in Headers */ = {isa = PBXBuildFile; fileRef = 219B8E3C131FD1D7003F8530 /* ctime.h */; };
 		219B8E64131FD1D7003F8530 /* cxml.h in Headers */ = {isa = PBXBuildFile; fileRef = 219B8E3E131FD1D7003F8530 /* cxml.h */; };
+		86AB7C80191141230041C90C /* CGUpnpAVTransportInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 86AB7C7E191141230041C90C /* CGUpnpAVTransportInfo.h */; };
+		86AB7C81191141230041C90C /* CGUpnpAVTransportInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 86AB7C7F191141230041C90C /* CGUpnpAVTransportInfo.m */; };
 		A49897091553D29F0004DD81 /* CGUpnpAction.h in Headers */ = {isa = PBXBuildFile; fileRef = A49896FC1553D29F0004DD81 /* CGUpnpAction.h */; };
 		A498970A1553D29F0004DD81 /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A49896FD1553D29F0004DD81 /* CGUpnpAction.m */; };
 		A498970B1553D29F0004DD81 /* CGUpnpControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = A49896FE1553D29F0004DD81 /* CGUpnpControlPoint.h */; };
@@ -391,6 +393,8 @@
 		219B8E3B131FD1D7003F8530 /* cthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cthread.h; sourceTree = "<group>"; };
 		219B8E3C131FD1D7003F8530 /* ctime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ctime.h; sourceTree = "<group>"; };
 		219B8E3E131FD1D7003F8530 /* cxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxml.h; sourceTree = "<group>"; };
+		86AB7C7E191141230041C90C /* CGUpnpAVTransportInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAVTransportInfo.h; sourceTree = "<group>"; };
+		86AB7C7F191141230041C90C /* CGUpnpAVTransportInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAVTransportInfo.m; sourceTree = "<group>"; };
 		A49896FC1553D29F0004DD81 /* CGUpnpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAction.h; sourceTree = "<group>"; };
 		A49896FD1553D29F0004DD81 /* CGUpnpAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAction.m; sourceTree = "<group>"; };
 		A49896FE1553D29F0004DD81 /* CGUpnpControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpControlPoint.h; sourceTree = "<group>"; };
@@ -1114,6 +1118,8 @@
 				A4A6698515553BEF00AED3AF /* CGUpnpAvObject.m */,
 				A4A6698615553BEF00AED3AF /* CGUpnpAVPositionInfo.h */,
 				A4A6698715553BEF00AED3AF /* CGUpnpAVPositionInfo.m */,
+				86AB7C7E191141230041C90C /* CGUpnpAVTransportInfo.h */,
+				86AB7C7F191141230041C90C /* CGUpnpAVTransportInfo.m */,
 				A4A6698815553BEF00AED3AF /* CGUpnpAvRenderer.h */,
 				A4A6698915553BEF00AED3AF /* CGUpnpAvRenderer.m */,
 				A4A6698A15553BEF00AED3AF /* CGUpnpAvResource.h */,
@@ -1218,6 +1224,7 @@
 				219B8E45131FD1D7003F8530 /* curi.h in Headers */,
 				219B8E46131FD1D7003F8530 /* curl.h in Headers */,
 				219B8E47131FD1D7003F8530 /* csoap.h in Headers */,
+				86AB7C80191141230041C90C /* CGUpnpAVTransportInfo.h in Headers */,
 				219B8E48131FD1D7003F8530 /* typedef.h in Headers */,
 				219B8E49131FD1D7003F8530 /* caction.h in Headers */,
 				219B8E4A131FD1D7003F8530 /* cargument.h in Headers */,
@@ -1413,6 +1420,7 @@
 				219B8DDB131FD1BA003F8530 /* cquery_response.c in Sources */,
 				219B8DDC131FD1BA003F8530 /* cservice.c in Sources */,
 				219B8DDD131FD1BA003F8530 /* cservice_list.c in Sources */,
+				86AB7C81191141230041C90C /* CGUpnpAVTransportInfo.m in Sources */,
 				219B8DDE131FD1BA003F8530 /* cservice_notify.c in Sources */,
 				219B8DDF131FD1BA003F8530 /* cservice_ssdp_server.c in Sources */,
 				219B8DE0131FD1BA003F8530 /* cservice_std_dcp.c in Sources */,

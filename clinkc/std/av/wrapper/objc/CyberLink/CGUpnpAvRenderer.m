@@ -11,6 +11,7 @@
 
 #import "CGUpnpAvRenderer.h"
 #import "CGUpnpAVPositionInfo.h"
+#import "CGUpnpAVTransportInfo.h"
 #import "CGUpnpAvItem.h"
 
 @interface CGUpnpAvRenderer()
@@ -202,6 +203,20 @@ enum {
 		return nil;
 	
 	return [[[CGUpnpAVPositionInfo alloc] initWithAction:action] autorelease];
+}
+
+- (CGUpnpAVTransportInfo *)transportInfo
+{
+    CGUpnpAction *action = [self actionOfTransportServiceForName:@"GetTransportInfo"];
+	if (!action)
+		return NO;
+	
+	[action setArgumentValue:@"0" forName:@"InstanceID"];
+	
+	if (![action post])
+		return nil;
+	
+	return [[[CGUpnpAVTransportInfo alloc] initWithAction:action] autorelease];
 }
 
 /*

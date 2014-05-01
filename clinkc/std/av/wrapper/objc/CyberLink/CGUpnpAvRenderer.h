@@ -15,6 +15,7 @@
 @class CGUpnpAvRenderer;
 @class CGUpnpAvItem;
 @class CGUpnpAVPositionInfo;
+@class CGUpnpAVTransportInfo;
 
 #if !defined(_CG_CLINKCAV_MEDIARENDERER_H_)
 typedef void CgUpnpAvRenderer;
@@ -43,4 +44,5 @@ typedef void CgUpnpAvRenderer;
 - (BOOL)stop
 */
 - (CGUpnpAVPositionInfo *)positionInfo;
+- (CGUpnpAVTransportInfo *)transportInfo;
 @end
